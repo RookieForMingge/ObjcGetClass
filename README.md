@@ -18,12 +18,12 @@
 在苹果公开的官方objc源码，NSObject.mm文件中：
 
 // 类方法，返回自身
-+ (Class)class {
++(Class)class {
     return self;
 }
  
 // 实例方法，查找isa（类）
-- (Class)class {
+-(Class)class {
     return object_getClass(self);
 }
 2、object_getClass方法
@@ -47,16 +47,18 @@ Class object_getClass(id obj)
 }
 
 
-1、当参数obj为Object实例对象**
+1、当参数obj为Object实例对象
 object_getClass(obj)与[obj class]输出结果相同，均获得isa指针，即指向类对象的指针。
 
-2、当参数obj为Class类对象**
+2、当参数obj为Class类对象
 object_getClass(obj)返回类对象中的isa指针，即指向元类对象的指针；
 [obj class]返回类对象本身。
-3、当参数obj为Metaclass类对象**
+
+3、当参数obj为Metaclass类对象
 object_getClass(obj)返回元类对象中的isa指针，因为元类对象的isa指针指向根类，所有返回的是根类对象的地址指针；
 [obj class]返回元类本身。
-4、obj为Rootclass类对象**
+
+4、obj为Rootclass类对象
 object_getClass(obj)返回根类对象中的isa指针，因为跟类对象的isa指针指向Rootclass‘s metaclass(根元类)，即返回的是根元类的地址指针；
 [obj class]返回的则是其本身。
 
@@ -70,3 +72,5 @@ obj为实例对象
 调用的是实例方法：- (Class)class，返回的obj对象中的isa指针；
 obj为类对象（包括元类和根类以及根元类）
 调用的是类方法：+ (Class)class，返回的结果为调用者本身。
+
+
