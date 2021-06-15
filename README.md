@@ -40,11 +40,6 @@ object_getClass(id _Nullable obj) 
 【3】如果是meta-class对象，返回NSObject（基类）的meta-class对象
 
 官方源码：
-
-/***********************************************************************
-* object_getClass.
-* Locking: None. If you add locking, tell gdb (rdar://7516456).
-**********************************************************************/
 Class object_getClass(id obj)
 {
     if (obj) return obj->getIsa();
